@@ -1,0 +1,108 @@
+{
+    "default": [
+        {
+            "subject": "Usage: adam [options] [command]",
+            "text": []
+        },
+        {
+            "subject": "Clean adam files",
+            "text": [
+                "clean    remove ~/.adam directory"
+            ]
+        },
+        {
+            "subject": "Manage templates:",
+            "text": [
+                "tpl add       add a template to local",
+                "tpl rename    rename a local template",
+                "tpl remove    remove a local template",
+                "tpl update    update local template(s)",
+                "tpl list      list all local templates, or list all templates in [Adam-Templates] group"
+            ]
+        },
+        {
+            "subject": "Show help message:",
+            "text": [
+                "help, -h, --help      display this message",
+                "help <sub-command>    show sub-command help message"
+            ]
+        }
+    ],
+    "clean": [
+        {
+            "id": "clean",
+            "subject": "Clean adam data",
+            "text": [
+                "clean    clean adam data (remove `~/.adam` directory)"
+            ]
+        }
+    ],
+    "config": [
+        {
+            "id": "config",
+            "subject": "Manage adam configuration",
+            "text": [
+                "group    gitlab group name or github organizations name",
+                "token    your private token for gitlab"
+            ]
+        }
+    ],
+    "template": [
+        {
+            "id": "add",
+            "subject": "Add template to local:",
+            "text": [
+                "tpl add <template-name> <template-git-repo-url>"
+            ]
+        },
+        {
+            "id": "rename",
+            "subject": "Rename local template:",
+            "text": [
+                "tpl rename <old-template-name> <new-template-name>",
+                "alias: tpl move"
+            ]
+        },
+        {
+            "id": "remove",
+            "subject": "Remove local template:",
+            "text": [
+                "tpl remove <template-name>",
+                "alias: tpl del",
+                "alias: tpl delete"
+            ]
+        },
+        {
+            "id": "update",
+            "subject": "Update local template(s):",
+            "text": [
+                "tpl update <template-name>    update the template named <template-name>",
+                "tpl update -a                 update all templates"
+            ]
+        },
+        {
+            "id": "list",
+            "subject": "List template(s):",
+            "text": [
+                "tpl list       list all local templates",
+                "tpl list -v    list all local templates with git-repo-url",
+                "tpl list -a    list all templates in [Adam-Templates] group"
+            ]
+        },
+        {
+            "id": "_shortcuts",
+            "subject": "You can omit `tpl` now, like:",
+            "text": [
+                "add <template-name> <template-git-repo-url>",
+                "list -v"
+            ]
+        },
+        {
+            "id": "_auto",
+            "subject": "Run `adam config` first, and adam can get <template-git-repo-url> automatic",
+            "text": [
+                "tpl add <git-repo-name>"
+            ]
+        }
+    ]
+}
