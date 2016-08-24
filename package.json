@@ -1,10 +1,10 @@
 {
   "name": "adam-cli",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "project initial tools",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mingelz/adam.git"
+    "url": "git@github.com:amfe/adam.git"
   },
   "author": {
     "name": "mingelz",
