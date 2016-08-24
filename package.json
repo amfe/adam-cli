@@ -1,6 +1,6 @@
 {
-  "name": "adam",
-  "version": "0.3.0",
+  "name": "adam-cli",
+  "version": "0.4.0",
   "description": "project initial tools",
   "repository": {
     "type": "git",

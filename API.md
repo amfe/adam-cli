@@ -6,7 +6,7 @@
 
 ## Clean 清理
 
-可以通过招待 `adam clean` 删掉 adam 缓存。
+可以通过执行 `adam clean` 删掉 adam 缓存（`~/.adam/`）。
 
 ## Config 配置
 
@@ -23,7 +23,8 @@
 ### add 添加模板
 
 + 普通方式：`adam tpl add <template-name> <template-git-repo-url>`
-+ 文艺方式：如果已经通过 `adam config` 配置了默认 gitlab 仓库组，则可以只写 `adam tpl add <template-git-repo-name>`
++ 文艺方式1：添加 github 上已有的库，可省略域名等信息，如 `git@github.com:my-name/my-tpl` 可直接使用 `adam add my-name/my-tpl`
++ 文艺方式2：如果已经通过 `adam config` 配置了默认 gitlab 仓库组，则可以只写 `adam tpl add <template-git-repo-name>`
 + 快捷方式：二级命令 `tpl` 可省略：`adam add ...`
 
 ### rename 重命名模板

@@ -15,13 +15,13 @@ if (typeof Promise === 'undefined') {
 
 /**
  * @param {Object} conf  config.json 文件内容
- * @param {String} type  action type: ['add', 'rename', 'remove', 'update', 'list', 'search']
+ * @param {String} type  action type: ['add', 'rename', 'remove', 'update', 'list']
  * @param {String} name  a template name (type in ['add', 'rename', 'remove', 'update'])
  *                       a project name  (type in ['add'])
  *                       a string        (type in ['update', 'list', 'search'])
  * @param {String} extra a git repo url  (type in ['add'])
  *                       a template name (type in ['rename'])
- *                       empty string    (type in ['add', 'remove', 'update', 'list', 'search'])
+ *                       empty string    (type in ['add', 'remove', 'update', 'list'])
  */
 module.exports = function (conf, type, name, extra) {
     var ready = Promise.resolve(conf);
@@ -58,21 +58,53 @@ module.exports = function (conf, type, name, extra) {
                             return Promise.reject('Template ' + name + ' is exists.');
                         }
 
-                        // 如果只传入 name，尝试拼出最终 git 地址
-                        if (name && !url) {
-                            var group = conf.config.group;
+                        var regexGithubShortUrl = /^(\w+)\/(\w+)(#\w+)?$/;
+                        var regexGitRepoUrl = /^(?:git@|git:\/\/|https?:\/\/).+\/([\w-]+)\.git$/;
+                        var matchGithubShortUrl;
+                        var matchGitRepoUrl;
 
-                            if (!group) {
-                                return Promise.reject('Need git repo url. Or run `adam config` first.');
+                        if (!url) {
+                            matchGithubShortUrl = name.match(regexGithubShortUrl);
+                            matchGitRepoUrl = name.match(regexGitRepoUrl);
+
+                            // add user/repo
+                            if (matchGithubShortUrl) {
+                                name = matchGithubShortUrl[1] + '/' + matchGithubShortUrl[2];
+                                url = 'git@github.com:' + name + '.git';
                             }
+                            // add git@github.com:user/name.git
+                            else if (matchGitRepoUrl) {
+                                url = name;
+                                name = matchGitRepoUrl[1];
+                            }
+                            // add name
+                            else {
+                                var group = conf.config.group;
+                                if (!group) {
+                                    return Promise.reject('Need git repo url. Or run `adam config` first.');
+                                }
 
-                            // git@github.com:amfe/name.git
-                            // git@gitlab.com:adam-templates/name.git
-                            url = 'git@' + conf.config.host + ':' + group + '/' + name + '.git';
+                                // git@github.com:amfe/name.git
+                                // git@gitlab.com:adam-templates/name.git
+                                url = 'git@' + conf.config.host + ':' + group + '/' + name + '.git';
+                            }
                         }
-                        // 如果传入了 url，则 url 一定要是 git-repo
-                        else if (url && !/^(?:git@|git:\/\/|https?:\/\/).+\.git$/.test(url)) {
-                            return Promise.reject('It\'s not a git repo url: ' + url + '.');
+                        else {
+                            matchGithubShortUrl = url.match(regexGithubShortUrl);
+                            matchGitRepoUrl = url.match(regexGitRepoUrl);
+
+                            // add name user/repo
+                            if (matchGithubShortUrl) {
+                                var _name = matchGithubShortUrl[1] + '/' + matchGithubShortUrl[2];
+                                url = 'git@github.com:' + _name + '.git';
+                            }
+                            // add name url
+                            else if (matchGitRepoUrl) {
+                                // normal style, do nothing
+                            }
+                            else {
+                                return Promise.reject('It\'s not a git repo url: ' + url + '.');
+                            }
                         }
 
                         return conf;
