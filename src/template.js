@@ -58,8 +58,8 @@ module.exports = function (conf, type, name, extra) {
                             return Promise.reject('Template ' + name + ' is exists.');
                         }
 
-                        var regexGithubShortUrl = /^(\w+)\/(\w+)(#\w+)?$/;
-                        var regexGitRepoUrl = /^(?:git@|git:\/\/|https?:\/\/).+\/([\w-]+)\.git$/;
+                        var regexGithubShortUrl = /^([\w\._-]+)\/([\w\._-]+)(#[\w\._-]+)?$/;
+                        var regexGitRepoUrl = /^(?:git@|git:\/\/|https?:\/\/).+\/([\w\._-]+)\.git$/;
                         var matchGithubShortUrl;
                         var matchGitRepoUrl;
 
