@@ -1,6 +1,6 @@
 {
   "name": "adam-cli",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Simple CLI for scaffolding your projects",
   "repository": {
     "type": "git",
